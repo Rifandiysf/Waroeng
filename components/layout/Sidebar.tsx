@@ -29,7 +29,7 @@ const Sidebar = () => {
                     <li>
                         <Link
                             href="/"
-                            className="flex items-center justify-center p-3 rounded-sm text-black hover:text-white hover:bg-[#FF3F4F] transition-colors"
+                            className="flex items-center justify-center p-3 rounded-sm text-black hover:text-white hover:bg-primary transition-colors"
                             aria-label="Dashboard"
                             title="Dashboard"
                         >
@@ -39,7 +39,7 @@ const Sidebar = () => {
                     <li>
                         <Link
                             href="/store"
-                            className="flex items-center justify-center p-3 rounded-sm text-black hover:text-white hover:bg-[#FF3F4F] transition-colors"
+                            className="flex items-center justify-center p-3 rounded-sm text-black hover:text-white hover:bg-primary transition-colors"
                             aria-label="Store"
                             title="Store"
                         >
@@ -49,7 +49,7 @@ const Sidebar = () => {
                     <li>
                         <Link
                             href="/history"
-                            className="flex items-center justify-center p-3 rounded-sm text-black hover:text-white hover:bg-[#FF3F4F] transition-colors"
+                            className="flex items-center justify-center p-3 rounded-sm text-black hover:text-white hover:bg-primary transition-colors"
                             aria-label="History"
                             title="History"
                         >
@@ -59,7 +59,7 @@ const Sidebar = () => {
                     <li>
                         <Link
                             href="/product"
-                            className="flex items-center justify-center p-3 rounded-sm text-black hover:text-white hover:bg-[#FF3F4F] transition-colors"
+                            className="flex items-center justify-center p-3 rounded-sm text-black hover:text-white hover:bg-primary transition-colors"
                             aria-label="Product"
                             title="Product"
                         >
@@ -71,7 +71,7 @@ const Sidebar = () => {
 
             <Link
                 href="/settings"
-                className="flex items-center justify-center p-3 rounded-sm text-black hover:text-white hover:bg-[#FF3F4F] transition-colors mt-8"
+                className="flex items-center justify-center p-3 rounded-sm text-black hover:text-white hover:bg-primary transition-colors mt-8"
                 aria-label="Settings"
                 title="Settings"
             >

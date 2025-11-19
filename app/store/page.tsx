@@ -1,67 +1,42 @@
-'use client'
+"use client";
 
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { useEffect, useState } from 'react'
+import { useState } from "react";
 
-const Page = () => {
-    const [currentDate, setCurrentDate] = useState<string>('')
+import StoreHeader from "./components/StoreHeader";
+import CategoryTabs from "./components/CategoryTabs";
+import MenuGrid from "./components/MenuGrid";
+import OrderSidebar from "./components/OrderSidebar";
+import { menuItems } from "@/lib/data";
 
-    useEffect(() => {
-        const updateDateTime = () => {
-            const now = new Date()
+export default function Store() {
+    const categories = [
+        { id: "all", label: "Semua" },
+        { id: "food", label: "Makanan" },
+        { id: "drink", label: "Minuman" },
+        { id: "snack", label: "Snack" },
+    ];
 
-            const dateOptions: Intl.DateTimeFormatOptions = {
-                weekday: 'long',
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-            }
-            const formattedDate = now.toLocaleDateString('id-ID', dateOptions)
-
-            setCurrentDate(formattedDate)
-        }
-
-        updateDateTime()
-        const interval = setInterval(updateDateTime, 1000)
-        return () => clearInterval(interval)
-    }, [])
+    // tambahkan state
+    const [activeCategory, setActiveCategory] = useState("all");
 
     return (
-        <>
-            <section className='relative flex'>
-                <div className='w-full'>
-                    <div className="flex items-center justify-between m-6">
-                        <div>
-                            <h1 className="font-semibold text-xl">Waroeng</h1>
-                            <div className="flex items-center gap-2 mt-2 text-gray-600">
-                                <time dateTime={currentDate ? new Date().toISOString() : ''}>
-                                    <span className="font-medium">{currentDate}</span>
-                                </time>
-                            </div>
-                        </div>
-                        <div>
-                            <Input
-                                type='text'
-                                placeholder='Search Product, Food, Snack, etc...'
-                                className='w-72 bg-white'
-                            />
-                        </div>
-                    </div>
-                </div>
+        <section className="flex h-screen bg-gray-50">
+            <div className="flex-1 overflow-auto">
+                <StoreHeader />
 
-                <div className='relative w-200 h-screen bg-white p-6'>
-                    <h1 className='text-2xl font-semibold'>Orders</h1>
+                <CategoryTabs
+                    categories={categories}
+                    active={activeCategory}
+                    setActive={setActiveCategory}
+                />
 
-                    <div></div>
+                <MenuGrid
+                    menuItems={menuItems}
+                    activeCategory={activeCategory}
+                />
+            </div>
 
-                    <div className='absolute p-5 bottom-0 right-0 left-0'>
-                        <Button className='w-full h-12 font-bold text-base cursor-pointer'>Lanjutkan Pembayaran</Button>
-                    </div>
-                </div>
-            </section>
-        </>
-    )
+            <OrderSidebar />
+        </section>
+    );
 }
-
-export default Page
