@@ -35,3 +35,13 @@ export interface CategoryTabsProps {
     activeTab: string
     onTabChange: (tabId: string) => void
 }
+
+export type TransactionDataType = {
+    invoice: string
+    item: {
+        name: string
+        qty: number
+        price: number
+    }[]
+    date: Date
+}
