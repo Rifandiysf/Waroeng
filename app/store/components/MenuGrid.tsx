@@ -2,13 +2,16 @@
 
 import { MenuItem } from "@/lib/types";
 import { formatCurrency } from "@/lib/formats";
+import { ReactNode } from "react";
 
 export default function MenuGrid({
     menuItems,
     activeCategory,
+    elements,
 }: {
     menuItems: MenuItem[];
     activeCategory: string;
+    elements?: ReactNode
 }) {
 
     const filtered =
@@ -27,11 +30,14 @@ export default function MenuGrid({
                         <div className="aspect-square bg-gray-200 flex items-center justify-center text-gray-500">
                             {item.name}
                         </div>
-                        <div className="p-4">
-                            <h3 className="font-semibold">{item.name}</h3>
-                            <p className="text-primary font-bold">
-                                {formatCurrency(item.price)}
-                            </p>
+                        <div className="flex justify-between items-center">
+                            <div className="p-4">
+                                <h3 className="font-semibold">{item.name}</h3>
+                                <p className="text-primary font-bold">
+                                    {formatCurrency(item.price)}
+                                </p>
+                            </div>
+                            <div className="p-4">{elements}</div>
                         </div>
                     </div>
                 ))}

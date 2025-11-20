@@ -20,7 +20,7 @@ export default function Store() {
     const [activeCategory, setActiveCategory] = useState("all");
 
     return (
-        <section className="flex h-screen bg-gray-50">
+        <section className="flex h-screen ml-[90px]">
             <div className="flex-1 overflow-auto">
                 <StoreHeader />
 

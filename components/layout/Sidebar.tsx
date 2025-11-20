@@ -5,7 +5,7 @@ import Link from "next/link"
 const Sidebar = () => {
     return (
         <aside
-            className="flex flex-col items-center w-20 p-3.5 h-screen shadow-sm bg-white"
+            className="fixed z-50 flex flex-col items-center w-20 p-3.5 h-screen shadow-sm bg-white"
             aria-label="Main navigation sidebar"
         >
             <Link
@@ -70,7 +70,7 @@ const Sidebar = () => {
             </nav>
 
             <Link
-                href="/settings"
+                href="#"
                 className="flex items-center justify-center p-3 rounded-sm text-black hover:text-white hover:bg-primary transition-colors mt-8"
                 aria-label="Settings"
                 title="Settings"
