@@ -3,11 +3,13 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Edit2, Plus } from 'lucide-react'
 import CategoryTabs from '../store/components/CategoryTabs'
-import MenuGrid from '../store/components/MenuGrid'
 import { useState } from 'react'
-import { menuItems } from '@/lib/data'
+import { useProduct } from '@/hooks/useProduct'
+import { formatCurrency } from '@/lib/formats'
 
 const Product = () => {
+    const { state, dispatch, isLoading, dataProduct } = useProduct()
+
     const categories = [
         { id: "all", label: "Semua" },
         { id: "food", label: "Makanan" },
@@ -41,15 +43,29 @@ const Product = () => {
                     setActive={setActiveCategory}
                 />
 
-                <MenuGrid
-                    menuItems={menuItems}
-                    activeCategory={activeCategory}
-                    elements={
-                        <Button title='Edit'>
-                            <Edit2 size={18}/>
-                        </Button>
-                    }
-                />
+                <div className="mx-6 pb-6">
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                        {dataProduct.map((item, idx) => (
+                            <div
+                                key={idx}
+                                className="bg-white rounded-lg shadow-sm hover:shadow-md transition cursor-pointer"
+                            >
+                                <div className="aspect-square bg-gray-200 flex items-center justify-center text-gray-500">
+                                    {item.product_name}
+                                </div>
+                                <div className="flex justify-between items-center">
+                                    <div className="p-4">
+                                        <h3 className="font-semibold">{item.product_name}</h3>
+                                        <p className="text-primary font-bold">
+                                            {formatCurrency(item.price)}
+                                        </p>
+                                    </div>
+                                    {/* <div className="p-4">{elements}</div> */}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
             </div>
         </section>
     )
