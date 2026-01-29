@@ -1,15 +1,25 @@
 const prisma = require("../../db");
 
-const getAllProducts = async ({ page = 1, perPage = 25 }) => {
+const getAllProducts = async ({ page = 1, perPage = 25, search } = {}) => {
   const skip = (page - 1) * perPage;
+
+  const where = search
+    ? {
+        OR: [
+          { product_name: { contains: search, mode: "insensitive" } },
+          { category: { category_name: { contains: search, mode: "insensitive" } } },
+        ],
+      }
+    : undefined;
 
   const [items, total] = await Promise.all([
     prisma.product.findMany({
+      where,
       skip,
       take: perPage,
       include: { category: true },
     }),
-    prisma.product.count(),
+    prisma.product.count({ where }),
   ]);
 
   const lastPage = Math.ceil(total / perPage);
