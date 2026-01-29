@@ -1,11 +1,32 @@
 const prisma = require("../../db");
 
-const getAllProducts = async () => {
-  return prisma.product.findMany({
-    include: {
-      category: true,
+const getAllProducts = async ({ page = 1, perPage = 25 }) => {
+  const skip = (page - 1) * perPage;
+
+  const [items, total] = await Promise.all([
+    prisma.product.findMany({
+      skip,
+      take: perPage,
+      include: { category: true },
+    }),
+    prisma.product.count(),
+  ]);
+
+  const lastPage = Math.ceil(total / perPage);
+
+  return {
+    pagination: {
+      last_visible_page: lastPage,
+      has_next_page: page < lastPage,
+      current_page: page,
+      items: {
+        count: items.length,
+        total,
+        per_page: perPage,
+      },
     },
-  });
+    data: items,
+  };
 };
 
 const getProductById = async (id) => {
@@ -40,8 +61,10 @@ const createProduct = async (data) => {
 const updateProduct = async (id, data) => {
   // Coerce numeric fields in update payload as well
   const updateData = { ...data };
-  if (updateData.price !== undefined) updateData.price = Number(updateData.price);
-  if (updateData.category_id !== undefined) updateData.category_id = Number(updateData.category_id);
+  if (updateData.price !== undefined)
+    updateData.price = Number(updateData.price);
+  if (updateData.category_id !== undefined)
+    updateData.category_id = Number(updateData.category_id);
 
   return prisma.product.update({
     where: { id: Number(id) },
